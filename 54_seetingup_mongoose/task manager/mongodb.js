@@ -1,0 +1,32 @@
+import mongodb from "mongodb"
+const MongoClient = mongodb.MongoClient
+
+const connectionurl = "mongodb://127.0.0.1:27017"
+const databaseName = "task-manager"
+
+MongoClient.connect(
+  connectionurl, {
+  useNewUrlParser: true
+},
+  (error, client) => {
+    if (error) {
+      return console.log("uanbale to connect to database")
+    }
+    const db = client.db(databaseName)
+
+    db.collection("users").deleteOne({
+        age: 39
+      }).then((result) => {
+        console.log(result)
+      }).catch((error) => {
+        console.log(error)
+      })
+
+    db.collection("Tasks").deleteOne({
+      task:"exam"  
+      }).then((result)=>{
+      console.log(result)
+    }).catch((error)=>{
+      console.log(error)
+    })
+  })
